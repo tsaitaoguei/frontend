@@ -1,0 +1,30 @@
+<header>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">製程監控儀表板</a>
+  </div>
+</nav>
+</header>
+
+<main class="container py-5">
+<section *ngFor="let line of processLines" class="mb-5">
+  <h2 class="mb-3 border-bottom pb-2">{{ line.name }}</h2>
+  <div class="d-flex flex-row flex-nowrap overflow-auto pb-3 process-line-container">
+    <div *ngFor="let node of line.nodes; let isLast = last" class="col-auto d-flex flex-row align-items-center">
+      <div class="card shadow-sm">
+        <div class="card-body text-center" style="width: 17rem;">
+          <h5 class="card-title text-primary">{{ node.stepLabel }}</h5>
+          <app-chart [chartOptions]="node.chartOptions"></app-chart>
+        </div>
+      </div>
+      <div *ngIf="!isLast" class="mx-3">
+        <span class="fs-2 text-muted">&rarr;</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="text-center py-4 bg-light mt-auto">
+<p class="text-muted small">動態製程儀表板 &copy; 2025</p>
+</footer>
