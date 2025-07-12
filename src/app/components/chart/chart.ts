@@ -20,4 +20,7 @@ import 'highcharts/modules/timeline';
 export class Chart {
   Highcharts: typeof Highcharts = Highcharts;
   @Input() chartOptions: Highcharts.Options = {};
+  chartConstructor: ChartConstructorType = 'chart';
+  updateFlag: boolean = false; // Optional
+  oneToOneFlag: boolean = true; // Optional, defaults to false
 }
