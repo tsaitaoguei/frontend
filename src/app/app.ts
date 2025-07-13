@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chart } from './components/chart/chart';
-import { ProcessLine } from './data.models';
+import { ProcessLine, ChartNode } from './data.models';
 import { Options } from 'highcharts';
 
 @Component({
@@ -41,6 +41,20 @@ export class App {
       ]
     }
   ];
+
+  constructor() {
+    // 在 constructor 中處理 processLines，將 name 轉化為一個 node
+    this.processLines = this.processLines.map(line => {
+      const titleNode: ChartNode = {
+        stepLabel: line.name,
+        chartType: 'label' // 設定為新的 'label' 類型
+      };
+      return {
+        ...line,
+        nodes: [titleNode, ...line.nodes] // 將 titleNode 放在最前面
+      };
+    });
+  }
 
   private getGaugeOptions(name: string, value: number): Options {
     return {

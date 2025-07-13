@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HighchartsChartComponent, ChartConstructorType } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
 
@@ -17,10 +17,18 @@ import 'highcharts/modules/timeline';
   templateUrl: './chart.html',
   styleUrls: ['./chart.css'],
 })
-export class Chart {
+export class Chart implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
-  @Input() chartOptions: Highcharts.Options = {};
+  @Input() chartOptions?: Highcharts.Options = {}// 將 chartOptions 設置為可選的
   chartConstructor: ChartConstructorType = 'chart';
   updateFlag: boolean = false; // Optional
-  oneToOneFlag: boolean = true; // Optional, defaults to false
+  oneToOneFlag: boolean = true; // Optional, defaults to fals
+
+  constructor() {}
+
+  ngOnInit() {
+    if (!this.chartOptions) {
+      this.chartOptions = {};
+    }
+  }
 }
